@@ -1,6 +1,6 @@
 package com.monkeyshop.auth.handler;
 
-import com.monkeyshop.auth.persistence.SignUpReadRepository;
+import com.monkeyshop.auth.persistence.UserQueryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserDetailsServiceHandler implements UserDetailsService {
 
-    private final SignUpReadRepository signUpReadRepository;
+    private final UserQueryRepository userQueryRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return signUpReadRepository.findByUsernameIgnoreCase(username)
+        return userQueryRepository.findByUsernameIgnoreCase(username)
             .orElseThrow(() -> new UsernameNotFoundException(String.format("Username %s not found", username)));
     }
 }

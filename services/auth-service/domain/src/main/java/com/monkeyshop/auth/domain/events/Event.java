@@ -10,8 +10,10 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
-@Document("user_events")
-public abstract class Event {
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "user_events")
+public class Event {
 
     @Id
     private UUID id;

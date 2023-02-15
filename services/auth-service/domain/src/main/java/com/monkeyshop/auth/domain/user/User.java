@@ -3,6 +3,9 @@ package com.monkeyshop.auth.domain.user;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,13 +17,23 @@ import java.util.UUID;
 @Setter
 @Getter
 @Builder
+@Document(value="users") // View. Only Read.
 public class User implements UserDetails {
 
     public static final String DEFAULT_ROLE = "USER";
 
+    @Id
+    @Field("_id")
     private UUID id;
+
+    @Field("data.username")
     private String username;
+
+    @Field("data.passwordHash")
     private String passwordHash;
+
+    @Field("data.email")
+    private String email;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -30,11 +43,6 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return passwordHash;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override

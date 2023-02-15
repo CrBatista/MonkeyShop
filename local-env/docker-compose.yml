@@ -5,8 +5,9 @@ services:
   ##############
   ## Local DB ##
   ##############
+
   local-mongodb:
-    image: mongo:6.0.4
+    image: mongo:5.0
     container_name: local-mongodb
     ports:
       - 27017:27017
@@ -15,7 +16,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
       MONGO_INITDB_DATABASE: admin
     volumes:
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./mongo_ddl:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
       interval: 10s
@@ -26,6 +27,7 @@ services:
   ##################
   ## Auth Service ##
   ##################
+
   auth-service:
     build:
       context: ../services/auth-service

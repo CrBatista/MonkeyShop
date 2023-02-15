@@ -20,10 +20,10 @@ public class AuthDelegate implements AuthApiDelegate {
     @Override
     public ResponseEntity<Void> signup(SignUpRequest signUpRequest) {
 
-        UserCreatedEvent userCreatedEvent = UserCreatedEvent.builder()
-            .username(signUpRequest.getUsername())
-            .passwordHash(customPasswordEncoder.encode(signUpRequest.getPassword()))
-            .build();
+        UserCreatedEvent userCreatedEvent = new UserCreatedEvent(
+            "createdBy", // TODO Fetch from auth
+            signUpRequest.getUsername(),
+            customPasswordEncoder.encode(signUpRequest.getPassword()));
 
         signUpUseCase.signUp(userCreatedEvent);
 
