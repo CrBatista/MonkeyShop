@@ -1,7 +1,7 @@
 package com.monkeyshop.auth.persistence;
 
-import com.monkeyshop.auth.domain.SignUp;
-import com.monkeyshop.auth.mongo.repositories.SignUpRepository;
+import com.monkeyshop.auth.domain.events.UserCreatedEvent;
+import com.monkeyshop.auth.mongo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SignUpWriteRepository {
 
-    private final SignUpRepository signUpRepository;
+    private final UserRepository userRepository;
 
-    public SignUp save(SignUp signUp) {
-        return signUpRepository.save(signUp);
+    public UserCreatedEvent save(UserCreatedEvent userCreatedEvent) {
+        return userRepository.save(userCreatedEvent);
     }
 
 }

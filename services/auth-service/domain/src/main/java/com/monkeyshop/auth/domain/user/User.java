@@ -1,31 +1,24 @@
-package com.monkeyshop.auth.domain;
+package com.monkeyshop.auth.domain.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 @Setter
 @Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Document(collection = "SignUpEvents")
-public class SignUp implements UserDetails {
+public class User implements UserDetails {
 
     public static final String DEFAULT_ROLE = "USER";
 
-    @Id
-    private String id;
+    private UUID id;
     private String username;
     private String passwordHash;
 
@@ -63,5 +56,4 @@ public class SignUp implements UserDetails {
     public boolean isEnabled() {
         return Boolean.TRUE;
     }
-
 }

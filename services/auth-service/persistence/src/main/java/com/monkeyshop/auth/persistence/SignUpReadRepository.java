@@ -1,7 +1,7 @@
 package com.monkeyshop.auth.persistence;
 
-import com.monkeyshop.auth.domain.SignUp;
-import com.monkeyshop.auth.mongo.repositories.SignUpRepository;
+import com.monkeyshop.auth.domain.events.UserCreatedEvent;
+import com.monkeyshop.auth.mongo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +11,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class SignUpReadRepository {
 
-    private final SignUpRepository signUpRepository;
+    private final UserRepository userRepository;
 
-    public Optional<SignUp> findByUsernameIgnoreCase(String id) {
-        return signUpRepository.findByUsernameIgnoreCase(id);
+    public Optional<UserCreatedEvent> findByUsernameIgnoreCase(String id) {
+        return userRepository.findByUsernameIgnoreCase(id);
     }
 
 }
