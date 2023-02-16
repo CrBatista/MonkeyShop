@@ -13,21 +13,26 @@ import com.monkeyshop.security.AuthenticationFetcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
-@Component
+@Validated
+@RestController
 @RequiredArgsConstructor
 public class AuthDelegate implements AuthApiDelegate {
 
     private final CustomPasswordEncoder customPasswordEncoder;
     private final UserHandler userHandler;
+    private final AuthenticationFetcher authenticationFetcher;
 
     @Override
     public ResponseEntity<Void> createUser(CreateUserRequest createUserRequest) {
         UserCreatedEvent userCreatedEvent = new UserCreatedEvent(
-            new AuthenticationFetcher().getLoggedUserID(),
+            authenticationFetcher.getLoggedUserID(),
             createUserRequest.getUsername(),
             createUserRequest.getEmail(),
             customPasswordEncoder.encode(createUserRequest.getPassword()));
@@ -41,7 +46,7 @@ public class AuthDelegate implements AuthApiDelegate {
     public ResponseEntity<User> updateUser(String userId, UpdateUserRequest updateUserRequest) {
         UserUpdatedEvent userUpdatedEvent = new UserUpdatedEvent(
             userId,
-            new AuthenticationFetcher().getLoggedUserID(),
+            authenticationFetcher.getLoggedUserID(),
             updateUserRequest.getUsername(),
             updateUserRequest.getEmail(),
             Optional.ofNullable(updateUserRequest.getPassword())
@@ -57,7 +62,7 @@ public class AuthDelegate implements AuthApiDelegate {
     public ResponseEntity<User> deleteUser(String userId) {
         UserDeletedEvent userDeletedEvent = new UserDeletedEvent(
             userId,
-            new AuthenticationFetcher().getLoggedUserID());
+            authenticationFetcher.getLoggedUserID());
 
         userHandler.delete(userDeletedEvent);
 
