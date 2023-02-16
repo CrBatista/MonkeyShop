@@ -3,6 +3,7 @@ package com.monkeyshop.auth.domain.events;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -15,16 +16,23 @@ import java.util.UUID;
 @Document(collection = "user_events")
 public class Event {
 
-    @Id
-    private UUID id;
+    @Field("userId")
+    private String userId;
     private String type;
     private Instant timestamp;
-    private String createdBy;
+    private String author;
 
-    public Event(String type, String createdBy) {
-        this.id = UUID.randomUUID();
+    public Event(String type, String author) {
+        this.userId = UUID.randomUUID().toString();
         this.type = type;
         this.timestamp = Instant.now();
-        this.createdBy = createdBy;
+        this.author = author;
+    }
+
+    public Event(String userId, String type, String author) {
+        this.userId = userId;
+        this.type = type;
+        this.timestamp = Instant.now();
+        this.author = author;
     }
 }

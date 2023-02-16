@@ -17,7 +17,7 @@ classDiagram
     }
     
     class CustomerCreatedEvent {
-        User createdBy
+        User author
     }
     
     class CustomerUpdatedEvent {

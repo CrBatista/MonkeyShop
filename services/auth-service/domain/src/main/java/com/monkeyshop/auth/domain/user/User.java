@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.UUID;
 
 @Setter
 @Getter
@@ -24,7 +23,7 @@ public class User implements UserDetails {
 
     @Id
     @Field("_id")
-    private UUID id;
+    private String id;
 
     @Field("data.username")
     private String username;

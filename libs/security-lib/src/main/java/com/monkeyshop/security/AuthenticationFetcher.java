@@ -30,5 +30,4 @@ public class AuthenticationFetcher {
         return Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication())
             .orElseThrow(() -> new UnauthorizedUserException("Authentication can't be null"));
     }
-
 }

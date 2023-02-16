@@ -21,7 +21,7 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/auth-api.yaml
+                                ${project.basedir}/src/main/resources/user-api.yaml
                             </inputSpec>
                             <addCompileSourceRoot>true</addCompileSourceRoot>
                             <generatorName>spring</generatorName>

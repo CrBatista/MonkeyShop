@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Auth Service API
+
+tags:
+  - name: auth
+
+paths:
+  /auth/user:
+    post:
+      summary: Create User
+      operationId: createUser
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        "201":
+          description: User was created
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+  /auth/user/{userId}:
+    put:
+      summary: Update User
+      operationId: updateUser
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      tags:
+        - user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUserRequest"
+      responses:
+        "200":
+          description: Update request was accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+
+components:
+  parameters:
+    userId:
+      name: userId
+      in: path
+      description: User ID
+      required: true
+      schema:
+        type: string
+  responses:
+    DefaultErrorResponse:
+      description: Unexpected error
+      content:
+        "*/*":
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/Error"
+
+  schemas:
+    CreateUserRequest:
+      type: object
+      required:
+        - username
+        - password
+        - email
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+    UpdateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+    Error:
+      type: "object"
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

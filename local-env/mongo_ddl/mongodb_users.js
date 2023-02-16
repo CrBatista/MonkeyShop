@@ -10,14 +10,16 @@ db.createView("users", "user_events",
                 data: {
                     $mergeObjects: '$data'
                 },
-                createdBy: {
+                author: {
                     $first: '$author'
                 },
                 createdAt: {
                     $first: '$timestamp'
-                }, updatedBy: {
+                },
+                updatedBy: {
                     $last: '$author'
-                }, updatedAt: {
+                },
+                updatedAt: {
                     $last: '$timestamp'
                 },
                 history: {

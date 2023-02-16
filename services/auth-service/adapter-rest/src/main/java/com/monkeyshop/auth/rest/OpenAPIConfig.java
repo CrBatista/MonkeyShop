@@ -22,6 +22,8 @@ import org.springframework.context.annotation.Configuration;
     }
 )
 @SecurityScheme(
+    bearerFormat = "JWT",
+    scheme = "bearer",
     name = "security_auth",
     type = SecuritySchemeType.OAUTH2,
     flows = @OAuthFlows(password = @OAuthFlow(

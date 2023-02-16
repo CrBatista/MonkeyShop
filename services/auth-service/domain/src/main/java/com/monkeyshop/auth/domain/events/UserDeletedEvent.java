@@ -4,15 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.UUID;
+
 @Setter
 @Getter
-@Document(collection = "UserEvents")
+@Document
 public class UserDeletedEvent extends Event {
 
-    private String userId;
-
-    public UserDeletedEvent(String createdBy, String userId) {
-        super("deleted", createdBy);
-        this.userId = userId;
+    public UserDeletedEvent(String userId, String author) {
+        super(userId, "deleted", author);
     }
 }
