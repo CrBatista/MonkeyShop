@@ -1,6 +1,7 @@
 package com.monkeyshop.auth.persistence;
 
 import com.monkeyshop.auth.domain.events.UserCreatedEvent;
+import com.monkeyshop.auth.domain.events.UserDeletedEvent;
 import com.monkeyshop.auth.domain.events.UserUpdatedEvent;
 import com.monkeyshop.auth.mongo.repositories.UserEventRepository;
 import com.monkeyshop.auth.mongo.repositories.UserRepository;
@@ -19,5 +20,9 @@ public class UserCommandRepository {
 
     public UserUpdatedEvent update(UserUpdatedEvent userUpdatedEvent) {
         return userEventRepository.save(userUpdatedEvent);
+    }
+
+    public UserDeletedEvent delete(UserDeletedEvent userDeletedEvent) {
+        return userEventRepository.save(userDeletedEvent);
     }
 }

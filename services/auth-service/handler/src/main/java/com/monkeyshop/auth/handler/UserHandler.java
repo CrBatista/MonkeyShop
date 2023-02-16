@@ -1,6 +1,8 @@
 package com.monkeyshop.auth.handler;
 
+import com.monkeyshop.auth.domain.events.Event;
 import com.monkeyshop.auth.domain.events.UserCreatedEvent;
+import com.monkeyshop.auth.domain.events.UserDeletedEvent;
 import com.monkeyshop.auth.domain.events.UserUpdatedEvent;
 import com.monkeyshop.auth.persistence.UserCommandRepository;
 import com.monkeyshop.auth.persistence.UserQueryRepository;
@@ -28,6 +30,11 @@ public class UserHandler {
         userCommandRepository.update(userUpdatedEvent);
     }
 
+    public void delete(UserDeletedEvent userDeletedEvent) throws ResponseStatusException {
+        throwIfEmpty(userDeletedEvent);
+        userCommandRepository.delete(userDeletedEvent);
+    }
+
     private void throwIfFound(UserCreatedEvent userCreatedEvent) {
         userQueryRepository.findByUsernameIgnoreCase(userCreatedEvent.getUsername())
             .ifPresent(conflictingSignUp -> {
@@ -35,10 +42,10 @@ public class UserHandler {
             });
     }
 
-    private void throwIfEmpty(UserUpdatedEvent userUpdatedEvent) {
-        userQueryRepository.findById(userUpdatedEvent.getUserId())
+    private void throwIfEmpty(Event userEvent) {
+        userQueryRepository.findById(userEvent.getUserId())
             .orElseThrow(() -> {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Username with ID %s does not exists", userUpdatedEvent.getUserId()));
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Username with ID %s does not exists", userEvent.getUserId()));
             });
     }
 }

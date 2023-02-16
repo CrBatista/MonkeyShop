@@ -1,6 +1,7 @@
 package com.monkeyshop.auth.rest.delegate;
 
 import com.monkeyshop.auth.domain.events.UserCreatedEvent;
+import com.monkeyshop.auth.domain.events.UserDeletedEvent;
 import com.monkeyshop.auth.domain.events.UserUpdatedEvent;
 import com.monkeyshop.auth.rest.model.CreateUserRequest;
 import com.monkeyshop.auth.rest.model.UpdateUserRequest;
@@ -48,6 +49,17 @@ public class AuthDelegate implements AuthApiDelegate {
                 .orElse(null));
 
         userHandler.update(userUpdatedEvent);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<User> deleteUser(String userId) {
+        UserDeletedEvent userDeletedEvent = new UserDeletedEvent(
+            userId,
+            new AuthenticationFetcher().getLoggedUserID());
+
+        userHandler.delete(userDeletedEvent);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

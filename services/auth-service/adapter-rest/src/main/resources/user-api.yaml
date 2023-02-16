@@ -46,6 +46,23 @@ paths:
                 $ref: '#/components/schemas/User'
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
+    delete:
+      summary: Delete User
+      operationId: deleteUser
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      tags:
+        - user
+      responses:
+        "200":
+          description: Delete request was accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
 
 components:
   parameters:

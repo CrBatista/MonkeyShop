@@ -10,7 +10,7 @@ db.createView("users", "user_events",
                 data: {
                     $mergeObjects: '$data'
                 },
-                author: {
+                createdBy: {
                     $first: '$author'
                 },
                 createdAt: {
@@ -22,6 +22,9 @@ db.createView("users", "user_events",
                 updatedAt: {
                     $last: '$timestamp'
                 },
+                lastEvent: {
+                    $last: '$type'
+                },
                 history: {
                     $push: {
                         type: '$type',
@@ -31,6 +34,11 @@ db.createView("users", "user_events",
                     }
                 }
             }
+        },
+        {
+           $match: {
+               lastEvent: {$not: { $eq: "deleted" } }
+           }
         }
     ]
  )
