@@ -4,7 +4,6 @@ import com.monkeyshop.auth.domain.events.UserCreatedEvent;
 import com.monkeyshop.auth.domain.events.UserDeletedEvent;
 import com.monkeyshop.auth.domain.events.UserUpdatedEvent;
 import com.monkeyshop.auth.mongo.repositories.UserEventRepository;
-import com.monkeyshop.auth.mongo.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +17,11 @@ public class UserCommandRepository {
         return userEventRepository.save(userCreatedEvent);
     }
 
-    public UserUpdatedEvent update(UserUpdatedEvent userUpdatedEvent) {
-        return userEventRepository.save(userUpdatedEvent);
+    public void update(UserUpdatedEvent userUpdatedEvent) {
+        userEventRepository.save(userUpdatedEvent);
     }
 
-    public UserDeletedEvent delete(UserDeletedEvent userDeletedEvent) {
-        return userEventRepository.save(userDeletedEvent);
+    public void delete(UserDeletedEvent userDeletedEvent) {
+        userEventRepository.save(userDeletedEvent);
     }
 }

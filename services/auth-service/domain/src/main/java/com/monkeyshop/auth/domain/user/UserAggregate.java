@@ -10,16 +10,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Setter
 @Getter
 @Builder
 @Document(value="users") // View. Only Read.
-public class User implements UserDetails {
-
-    public static final String DEFAULT_ROLE = "USER";
+public class UserAggregate implements UserDetails {
 
     @Id
     @Field("_id")
@@ -34,9 +34,30 @@ public class User implements UserDetails {
     @Field("data.email")
     private String email;
 
+    @Field("data.role")
+    private String role;
+
+    @Field("createdBy")
+    private String createdBy;
+
+    @Field("createdAt")
+    private Instant createdAt;
+
+    @Field("updatedBy")
+    private String updatedBy;
+
+    @Field("updatedAt")
+    private Instant updatedAt;
+
+    @Field("lastEvent")
+    private String lastEvent;
+
+    @Field("history")
+    private List<UserHistoryAggregate> history;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(DEFAULT_ROLE));
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
     @Override

@@ -4,25 +4,35 @@ import com.monkeyshop.auth.domain.events.Event;
 import com.monkeyshop.auth.domain.events.UserCreatedEvent;
 import com.monkeyshop.auth.domain.events.UserDeletedEvent;
 import com.monkeyshop.auth.domain.events.UserUpdatedEvent;
+import com.monkeyshop.auth.domain.user.UserAggregate;
 import com.monkeyshop.auth.persistence.UserCommandRepository;
 import com.monkeyshop.auth.persistence.UserQueryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserHandler {
 
-    @Autowired
     private final UserCommandRepository userCommandRepository;
     private final UserQueryRepository userQueryRepository;
 
-    public void create(UserCreatedEvent userCreatedEvent) throws ResponseStatusException {
+    public List<UserAggregate> findAll() {
+        return userQueryRepository.findAll();
+    }
+
+    public Optional<UserAggregate> findById(String userId) {
+        return userQueryRepository.findById(userId);
+    }
+
+    public String create(UserCreatedEvent userCreatedEvent) throws ResponseStatusException {
         throwIfFound(userCreatedEvent);
-        userCommandRepository.save(userCreatedEvent);
+        return userCommandRepository.save(userCreatedEvent).getUserId();
     }
 
     public void update(UserUpdatedEvent userUpdatedEvent) throws ResponseStatusException {

@@ -21,6 +21,26 @@ paths:
       responses:
         "201":
           description: User was created
+          content:
+            application/json:
+              schema:
+                type: string
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+    get:
+      summary: List Users
+      operationId: findUsers
+      tags:
+        - user
+      responses:
+        "200":
+          description: Retrieved all users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
   /auth/user/{userId}:
@@ -38,12 +58,7 @@ paths:
               $ref: "#/components/schemas/UpdateUserRequest"
       responses:
         "200":
-          description: Update request was accepted
-          content:
-            application/json:
-              schema:
-                type: object
-                $ref: '#/components/schemas/User'
+          description: Update request was ok
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
     delete:
@@ -56,11 +71,22 @@ paths:
       responses:
         "200":
           description: Delete request was accepted
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+    get:
+      summary: Retrieve User Details
+      operationId: findUser
+      parameters:
+        - $ref: '#/components/parameters/userId'
+      tags:
+        - user
+      responses:
+        "200":
+          description: Returns User Details
           content:
             application/json:
               schema:
-                type: object
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/UserDetails"
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
 
@@ -106,12 +132,57 @@ components:
           type: string
         email:
           type: string
+        role:
+          type: string
     User:
       type: object
       properties:
+        id:
+          type: string
         username:
           type: string
-        password:
+        email:
+          type: string
+        role:
+          type: string
+    UserDetails:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        role:
+          type: string
+        email:
+          type: string
+        createdBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedBy:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        lastEvent:
+          type: string
+        history:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserHistoryDetails'
+    UserHistoryDetails:
+      type: object
+      properties:
+        type:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        username:
+          type: string
+        role:
           type: string
         email:
           type: string

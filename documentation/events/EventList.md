@@ -4,5 +4,5 @@ Events Topology
 |----------|-------------|-------------|
 | *CustomerCreatedEvent* | monkeyshop.customer.created | Generated when the customer gets created |
 | *CustomerUpdatedEvent* | monkeyshop.customer.updated | Generated when the customer gets updated |
-| *UserCreatedEvent* | monkeyshop.user.created | Generated when the user account gets created |
-| *UserUpdatedEvent* | monkeyshop.user.updated | Generated when the user account gets updated |
+| *UserCreatedEvent* | monkeyshop.userAggregate.created | Generated when the userAggregate account gets created |
+| *UserUpdatedEvent* | monkeyshop.userAggregate.updated | Generated when the userAggregate account gets updated |

@@ -21,10 +21,14 @@ public class UserUpdatedEvent extends Event {
     @Field("data.passwordHash")
     private String passwordHash;
 
-    public UserUpdatedEvent(String userId, String author, String username, String email, String passwordHash) {
+    @Field("data.role")
+    private String role;
+
+    public UserUpdatedEvent(String userId, String author, String username, String email, String role, String passwordHash) {
         super(userId, "updated", author);
         this.username = username;
         this.email = email;
+        this.role = role;
         this.passwordHash = passwordHash;
     }
 }

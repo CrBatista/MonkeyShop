@@ -1,7 +1,6 @@
 package com.monkeyshop.auth.rest.security;
 
-import com.monkeyshop.auth.domain.events.UserCreatedEvent;
-import com.monkeyshop.auth.domain.user.User;
+import com.monkeyshop.auth.domain.user.UserAggregate;
 import com.monkeyshop.auth.handler.UserDetailsServiceHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,10 +69,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             @Override
             public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, final OAuth2Authentication authentication) {
 
-                final User user = (User) userDetailsServiceUseCase.loadUserByUsername(authentication.getName());
+                final UserAggregate userAggregate = (UserAggregate) userDetailsServiceUseCase.loadUserByUsername(authentication.getName());
 
                 final Map<String, Object> additionalInfo = new HashMap<>();
-                additionalInfo.put(TOKEN_ENHANCE_USER_ID, user.getId());
+                additionalInfo.put(TOKEN_ENHANCE_USER_ID, userAggregate.getId());
                 ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 
                 accessToken = super.enhance(accessToken, authentication);
