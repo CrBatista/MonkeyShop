@@ -6,6 +6,9 @@ info:
 tags:
   - name: auth
 
+security:
+  - bearerAuth: []
+
 paths:
   /auth/user:
     post:
@@ -18,6 +21,8 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/CreateUserRequest"
+      security:
+        - bearerAuth: [ ]
       responses:
         "201":
           description: User was created
@@ -32,6 +37,8 @@ paths:
       operationId: findUsers
       tags:
         - user
+      security:
+        - bearerAuth: [ ]
       responses:
         "200":
           description: Retrieved all users
@@ -49,6 +56,8 @@ paths:
       operationId: updateUser
       parameters:
         - $ref: '#/components/parameters/userId'
+      security:
+        - bearerAuth: [ ]
       tags:
         - user
       requestBody:
@@ -64,6 +73,8 @@ paths:
     delete:
       summary: Delete User
       operationId: deleteUser
+      security:
+        - bearerAuth: [ ]
       parameters:
         - $ref: '#/components/parameters/userId'
       tags:
@@ -76,6 +87,8 @@ paths:
     get:
       summary: Retrieve User Details
       operationId: findUser
+      security:
+        - bearerAuth: [ ]
       parameters:
         - $ref: '#/components/parameters/userId'
       tags:
@@ -91,6 +104,15 @@ paths:
           $ref: "#/components/responses/DefaultErrorResponse"
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    apiKey:
+      type: apiKey
+      name: Authorization
+      in: header
   parameters:
     userId:
       name: userId

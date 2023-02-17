@@ -93,5 +93,4 @@ public class AuthDelegateTest {
         assertEquals("author", deletedEvent.getAuthor());
     }
 
-
 }

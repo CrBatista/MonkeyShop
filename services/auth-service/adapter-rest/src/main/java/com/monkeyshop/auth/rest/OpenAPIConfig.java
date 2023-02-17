@@ -32,4 +32,5 @@ import org.springframework.context.annotation.Configuration;
         scopes = {@OAuthScope(name = "all", description = "all scope")}))
 )
 public class OpenAPIConfig {
+
 }

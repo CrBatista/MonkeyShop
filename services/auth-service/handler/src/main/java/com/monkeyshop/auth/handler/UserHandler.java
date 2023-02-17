@@ -48,7 +48,7 @@ public class UserHandler {
     private void throwIfFound(UserCreatedEvent userCreatedEvent) {
         userQueryRepository.findByUsernameIgnoreCase(userCreatedEvent.getUsername())
             .ifPresent(conflictingSignUp -> {
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Username %s already in use", conflictingSignUp.getUsername()));
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Username %s already in use", userCreatedEvent.getUsername()));
             });
     }
 
