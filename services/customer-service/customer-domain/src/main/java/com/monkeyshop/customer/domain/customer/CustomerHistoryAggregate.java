@@ -13,6 +13,9 @@ public class CustomerHistoryAggregate {
   @Field("type")
   private String type;
 
+  @Field("author")
+  private String author;
+
   @Field("timestamp")
   private Instant timestamp;
 

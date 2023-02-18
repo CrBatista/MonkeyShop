@@ -65,6 +65,7 @@ public class AuthDelegate implements AuthApiDelegate {
                     .history(userAggregate.getHistory().stream().map(
                         userHistoryAggregate -> new UserHistoryDetails()
                             .type(userHistoryAggregate.getType())
+                            .author(userHistoryAggregate.getAuthor())
                             .timestamp(userHistoryAggregate.getTimestamp().atOffset(ZoneOffset.ofHours(-1)))
                             .email(userHistoryAggregate.getEmail())
                             .role(userHistoryAggregate.getRole())

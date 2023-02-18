@@ -1,12 +1,12 @@
 db.createCollection("customer_events")
-db.createView("customers", "customers_events",
+db.createView("customers", "customer_events",
     [
         {
             $sort: { timestamp: 1 }
         },
         {
             $group: {
-                _id: '$userId',
+                _id: '$customerId',
                 data: {
                     $mergeObjects: '$data'
                 },

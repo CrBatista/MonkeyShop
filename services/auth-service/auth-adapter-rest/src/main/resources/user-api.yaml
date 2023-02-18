@@ -41,7 +41,7 @@ paths:
         - bearerAuth: [ ]
       responses:
         "200":
-          description: Retrieved all users
+          description: Retrieve all users
           content:
             application/json:
               schema:
@@ -207,6 +207,8 @@ components:
         role:
           type: string
         email:
+          type: string
+        author:
           type: string
     Error:
       type: "object"

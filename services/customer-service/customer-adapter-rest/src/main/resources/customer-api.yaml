@@ -32,12 +32,30 @@ paths:
                 type: string
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
-  /customer/{userId}:
+    get:
+      summary: Retrieve Customers
+      operationId: findCustomers
+      security:
+        - bearerAuth: [ ]
+      tags:
+        - customer
+      responses:
+        "200":
+          description: Retrieve all customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+        default:
+          $ref: "#/components/responses/DefaultErrorResponse"
+  /customer/{customerId}:
     put:
       summary: Update Customer
       operationId: updateCustomer
       parameters:
-        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/customerId'
       security:
         - bearerAuth: [ ]
       tags:
@@ -48,8 +66,8 @@ paths:
             schema:
               $ref: "#/components/schemas/UpdateCustomerRequest"
       responses:
-        "200":
-          description: Update request was ok
+        "201":
+          description: Update request was accepted
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
     delete:
@@ -58,7 +76,7 @@ paths:
       security:
         - bearerAuth: [ ]
       parameters:
-        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/customerId'
       tags:
         - customer
       responses:
@@ -72,7 +90,7 @@ paths:
       security:
         - bearerAuth: [ ]
       parameters:
-        - $ref: '#/components/parameters/userId'
+        - $ref: '#/components/parameters/customerId'
       tags:
         - customer
       responses:
@@ -104,14 +122,25 @@ components:
             items:
               $ref: "#/components/schemas/Error"
   parameters:
-    userId:
-      name: userId
+    customerId:
+      name: customerId
       in: path
       description: User ID
       required: true
       schema:
         type: string
   schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        photoUrl:
+          type: string
     CustomerDetails:
       type: object
       properties:
@@ -153,6 +182,8 @@ components:
           type: string
         photoUrl:
           type: string
+        author:
+          type: string
     CreateCustomerRequest:
       type: object
       required:
@@ -165,9 +196,6 @@ components:
           type: string
     UpdateCustomerRequest:
       type: object
-      required:
-        - name
-        - surname
       properties:
         name:
           type: string
