@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
     <modules>
-        <module>auth-adapter-mongodb</module>
-        <module>auth-domain</module>
-        <module>auth-persistence</module>
-        <module>auth-handler</module>
-        <module>auth-adapter-rest</module>
-        <module>auth-infrastructure</module>
+        <module>customer-adapter-mongodb</module>
+        <module>customer-domain</module>
+        <module>customer-persistence</module>
+        <module>customer-handler</module>
+        <module>customer-adapter-rest</module>
+        <module>customer-infrastructure</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,9 +18,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.monkeyshop</groupId>
-    <artifactId>auth-service</artifactId>
+    <artifactId>customer-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>auth-service</name>
+    <name>customer-service</name>
     <description>Monkey Shop Spring Boot</description>
     <properties>
         <java.version>17</java.version>
@@ -51,7 +51,7 @@
         <security-lib.version>0.0.1-SNAPSHOT</security-lib.version>
     </properties>
     <build>
-        <finalName>auth-service</finalName>
+        <finalName>customer-service</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -141,27 +141,27 @@
             <!-- Modules -->
             <dependency>
                 <groupId>com.monkeyshop</groupId>
-                <artifactId>auth-adapter-mongodb</artifactId>
+                <artifactId>customer-adapter-mongodb</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.monkeyshop</groupId>
-                <artifactId>auth-adapter-rest</artifactId>
+                <artifactId>customer-adapter-rest</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.monkeyshop</groupId>
-                <artifactId>auth-domain</artifactId>
+                <artifactId>customer-domain</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.monkeyshop</groupId>
-                <artifactId>auth-persistence</artifactId>
+                <artifactId>customer-persistence</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.monkeyshop</groupId>
-                <artifactId>auth-handler</artifactId>
+                <artifactId>customer-handler</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!-- Others -->
