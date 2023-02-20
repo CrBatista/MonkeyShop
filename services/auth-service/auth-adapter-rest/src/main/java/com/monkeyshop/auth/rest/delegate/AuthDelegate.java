@@ -72,7 +72,7 @@ public class AuthDelegate implements AuthApiDelegate {
                             .username(userHistoryAggregate.getUsername()))
                         .collect(Collectors.toList())))
             .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.badRequest().build());
+            .orElse(ResponseEntity.notFound().build());
     }
 
     @Override

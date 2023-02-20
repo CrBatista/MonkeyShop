@@ -1,27 +1,28 @@
 package com.monkeyshop.customer.persistence;
 
-import com.monkeyshop.customer.domain.events.CustomerCreatedEvent;
-import com.monkeyshop.customer.domain.events.CustomerDeletedEvent;
-import com.monkeyshop.customer.domain.events.CustomerUpdatedEvent;
-import com.monkeyshop.customer.mongo.repositories.CustomerEventRepository;
+import com.monkeyshop.customer.domain.customer.events.CustomerEvent;
+import com.monkeyshop.customer.domain.repository.CustomerEventCommandRepository;
+
+import com.monkeyshop.customer.mongo.repositories.CustomerEventCommandMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CustomerCommandRepository {
+public class CustomerCommandRepository implements CustomerEventCommandRepository {
 
-    private final CustomerEventRepository customerEventRepository;
+    private final CustomerEventCommandMongoRepository customerEventCommandMongoRepository;
 
-    public CustomerCreatedEvent save(CustomerCreatedEvent customerCreatedEvent) {
-        return customerEventRepository.save(customerCreatedEvent);
+    public void update(CustomerEvent customerEvent) {
+        customerEventCommandMongoRepository.save(customerEvent);
     }
 
-    public void update(CustomerUpdatedEvent customerUpdatedEvent) {
-        customerEventRepository.save(customerUpdatedEvent);
+    public void delete(CustomerEvent customerEvent) {
+        customerEventCommandMongoRepository.save(customerEvent);
     }
 
-    public void delete(CustomerDeletedEvent customerDeletedEvent) {
-        customerEventRepository.save(customerDeletedEvent);
+    @Override
+    public CustomerEvent save(CustomerEvent customerEvent) {
+        return customerEventCommandMongoRepository.save(customerEvent);
     }
 }

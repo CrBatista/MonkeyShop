@@ -1,6 +1,5 @@
 package com.monkeyshop.auth.domain.user;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -17,7 +16,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@Builder
 @Document(value="users") // View. Only Read.
 public class UserAggregate implements UserDetails {
 

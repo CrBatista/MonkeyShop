@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Setter
 @Getter
 @Document
-public class UserUpdatedEvent extends Event {
+public class UserUpdatedEvent extends UserEvent {
 
     @Field("data.username")
     private String username;

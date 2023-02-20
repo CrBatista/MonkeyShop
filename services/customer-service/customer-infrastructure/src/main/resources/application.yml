@@ -9,12 +9,30 @@ spring:
   data:
     mongodb:
       host: localhost
-      port: 27017
+      port: 27018
       username: admin
       password: root
       database: admin
   jackson:
     default-property-inclusion: NON_NULL
+
+aws:
+  s3:
+    accessKey: AKIA6ECJ7J7OQ7QW4CF2
+    secretKey: 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
+    region: eu-west-1
+    bucketName: monkeyshop-customer-media
+
+kafka:
+  bootstrap-servers: localhost:9092
+  topics:
+    user:
+      created:
+        name: monkeyshop.user.created
+      updated:
+        name: monkeyshop.user.updated
+      deleted:
+        name: monkeyshop.user.deleted
 
 springdoc:
   version: '@springdoc.version@'

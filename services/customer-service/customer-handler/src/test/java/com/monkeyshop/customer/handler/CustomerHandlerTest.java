@@ -1,8 +1,7 @@
 package com.monkeyshop.customer.handler;
 
-import com.monkeyshop.customer.domain.events.CustomerCreatedEvent;
-import com.monkeyshop.customer.domain.events.CustomerDeletedEvent;
-import com.monkeyshop.customer.domain.events.CustomerUpdatedEvent;
+import com.monkeyshop.customer.domain.customer.events.CustomerCreatedEvent;
+import com.monkeyshop.customer.domain.customer.events.CustomerDeletedEvent;
 import com.monkeyshop.customer.domain.customer.CustomerAggregate;
 import com.monkeyshop.customer.persistence.CustomerCommandRepository;
 import com.monkeyshop.customer.persistence.CustomerQueryRepository;

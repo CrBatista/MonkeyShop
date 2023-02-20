@@ -2,7 +2,7 @@
 
 # IAM
 
-There is a userAggregate created in AWS named "monkey". This userAggregate has a PermissionPolicy attached named "FullAccessMonkeyArtifact" with the next JSON:
+There is a userAggregate created in AWS named "monkey". This user has a PermissionPolicy attached named "FullAccessMonkeyArtifact" with the next JSON:
 
 ```json
 {

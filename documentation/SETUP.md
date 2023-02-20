@@ -24,5 +24,5 @@ https://git-scm.com/download/win
 https://www.docker.com/
 
 
-- For every installation, we need to follow the instructions in ich site.
+- For every installation, we need to follow the instructions in each site.
 When we have everything, we just have to follow the README on local-env. 

@@ -10,6 +10,8 @@
         <module>customer-handler</module>
         <module>customer-adapter-rest</module>
         <module>customer-infrastructure</module>
+        <module>customer-adapter-kafka</module>
+        <module>customer-adapter-s3</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -142,6 +144,16 @@
             <dependency>
                 <groupId>com.monkeyshop</groupId>
                 <artifactId>customer-adapter-mongodb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.monkeyshop</groupId>
+                <artifactId>customer-adapter-kafka</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.monkeyshop</groupId>
+                <artifactId>customer-adapter-s3</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -1,7 +1,8 @@
 package com.monkeyshop.customer.persistence;
 
 import com.monkeyshop.customer.domain.customer.CustomerAggregate;
-import com.monkeyshop.customer.mongo.repositories.CustomerRepository;
+import com.monkeyshop.customer.domain.repository.CustomerAggregateQueryRepository;
+import com.monkeyshop.customer.mongo.repositories.CustomerQueryMongoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,16 +11,17 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class CustomerQueryRepository {
+public class CustomerQueryRepository implements CustomerAggregateQueryRepository {
 
-    private final CustomerRepository customerRepository;
+    private final CustomerQueryMongoRepository customerQueryMongoRepository;
 
+    @Override
     public List<CustomerAggregate> findAll() {
-        return customerRepository.findAll();
+        return customerQueryMongoRepository.findAll();
     }
 
+    @Override
     public Optional<CustomerAggregate> findById(String id) {
-        return customerRepository.findById(id);
+        return customerQueryMongoRepository.findById(id);
     }
-
 }

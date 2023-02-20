@@ -16,6 +16,17 @@ spring:
   jackson:
     default-property-inclusion: NON_NULL
 
+kafka:
+  bootstrap-servers: localhost:9092
+  topics:
+    user:
+      created:
+        name: monkeyshop.user.created
+      updated:
+        name: monkeyshop.user.updated
+      deleted:
+        name: monkeyshop.user.deleted
+
 springdoc:
   version: '@springdoc.version@'
   api-docs:

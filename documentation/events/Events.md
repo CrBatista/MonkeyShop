@@ -6,23 +6,35 @@ All the events of the system need to contain following information as the minimu
   
 classDiagram
    
-    Event <|-- CustomerCreatedEvent
-    Event <|-- CustomerUpdatedEvent
-    Event <|-- CustomerDeletedEvent
+    Event <|-- UserCreatedEvent
+    Event <|-- UserUpdatedEvent
+    Event <|-- UserDeletedEvent
    
    
     class Event {
         EventId eventId
-        Instant eventDate
+        String type
+        Instant timestamp
+        String author
     }
     
-    class CustomerCreatedEvent {
-        User author
+    class UserCreatedEvent {
+        String username
+        String email
+        String passwordHash
+        String role
     }
     
-    class CustomerUpdatedEvent {
-        int customerId
-        User modifiedBy
+    class UserUpdatedEvent {
+        String userId
+        String username
+        String email
+        String passwordHash
+        String role
+    }
+    
+    class UserDeletedEvent {
+        String userId 
     }
   
 ```

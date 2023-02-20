@@ -27,5 +27,10 @@
             <artifactId>auth-persistence</artifactId>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.monkeyshop</groupId>
+            <artifactId>auth-adapter-kafka</artifactId>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>

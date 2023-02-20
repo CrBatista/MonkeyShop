@@ -15,9 +15,22 @@ spring:
 
 security:
   oauth2:
-    access-token-validity-seconds: ${ACCESS_TOKEN_VALIDITY_SECONDS}
-    refresh-token-validity-seconds: ${REFRESH_TOKEN_VALIDITY_SECONDS}
-    client-id: ${CLIENT_ID}
-    client-secret: ${CLIENT_SECRET}
     public-key: ${PUBLIC_KEY}
-    private-key: ${PRIVATE_KEY}
+
+aws:
+  s3:
+    accessKey: ${AWS_S3_ACCESS_KEY}
+    secretKey: ${AWS_S3_SECRET_KEY}
+    region: ${AWS_S3_REGION}
+    bucket: ${AWS_S3_BUCKET_NAME}
+
+kafka:
+  bootstrap-servers: ${KAFKA_HOST_AND_PORT}
+  topics:
+    user:
+      created:
+        name: ${KAFKA_USER_CREATED_TOPIC}
+      updated:
+        name: ${KAFKA_USER_UPDATED_TOPIC}
+      deleted:
+        name: ${KAFKA_USER_DELETED_TOPIC}

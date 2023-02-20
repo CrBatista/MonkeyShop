@@ -51,6 +51,23 @@ paths:
         default:
           $ref: "#/components/responses/DefaultErrorResponse"
   /customer/{customerId}:
+    post:
+      summary: Upload a file
+      parameters:
+        - $ref: '#/components/parameters/customerId'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: File uploaded successfully
     put:
       summary: Update Customer
       operationId: updateCustomer
@@ -153,12 +170,12 @@ components:
         photoUrl:
           type: string
         createdBy:
-          type: string
+          $ref: '#/components/schemas/AuditDetails'
         createdAt:
           type: string
           format: date-time
         updatedBy:
-          type: string
+          $ref: '#/components/schemas/AuditDetails'
         updatedAt:
           type: string
           format: date-time
@@ -183,6 +200,15 @@ components:
         photoUrl:
           type: string
         author:
+          type: string
+    AuditDetails:
+      type: object
+      properties:
+        _id:
+          type: string
+        username:
+          type: string
+        email:
           type: string
     CreateCustomerRequest:
       type: object

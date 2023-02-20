@@ -10,6 +10,7 @@
         <module>auth-handler</module>
         <module>auth-adapter-rest</module>
         <module>auth-infrastructure</module>
+        <module>auth-adapter-kafka</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -147,6 +148,11 @@
             <dependency>
                 <groupId>com.monkeyshop</groupId>
                 <artifactId>auth-adapter-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.monkeyshop</groupId>
+                <artifactId>auth-adapter-kafka</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

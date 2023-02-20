@@ -1,10 +1,11 @@
 package com.monkeyshop.customer.rest.delegate;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.monkeyshop.customer.domain.customer.AuditAggregate;
 import com.monkeyshop.customer.domain.customer.CustomerAggregate;
-import com.monkeyshop.customer.domain.events.CustomerCreatedEvent;
-import com.monkeyshop.customer.domain.events.CustomerDeletedEvent;
-import com.monkeyshop.customer.domain.events.CustomerUpdatedEvent;
+import com.monkeyshop.customer.domain.customer.events.CustomerCreatedEvent;
+import com.monkeyshop.customer.domain.customer.events.CustomerDeletedEvent;
+import com.monkeyshop.customer.domain.customer.events.CustomerUpdatedEvent;
 import com.monkeyshop.customer.handler.CustomerHandler;
 import com.monkeyshop.customer.rest.api.CustomerApiDelegate;
 import com.monkeyshop.customer.rest.model.*;
@@ -15,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +49,8 @@ public class CustomerDelegate implements CustomerApiDelegate {
     @Override
     public ResponseEntity<Void> deleteCustomer(String customerId) {
         CustomerDeletedEvent customerDeletedEvent = new CustomerDeletedEvent(
-            authenticationFetcher.getLoggedUserID(), customerId);
+            customerId,
+            authenticationFetcher.getLoggedUserID());
 
         customerHandler.delete(customerDeletedEvent);
 
@@ -62,9 +66,15 @@ public class CustomerDelegate implements CustomerApiDelegate {
                 .surname(customerAggregate.getSurname())
                 .photoUrl(customerAggregate.getPhotoUrl())
                 .createdAt(customerAggregate.getCreatedAt().atOffset(ZoneOffset.ofHours(-1)))
-                .createdBy(customerAggregate.getCreatedBy())
+                .createdBy(new AuditDetails()
+                    .id(customerAggregate.getCreatedBy().get_id())
+                    .username(customerAggregate.getCreatedBy().getUsername())
+                    .email(customerAggregate.getCreatedBy().getEmail()))
                 .updatedAt(customerAggregate.getUpdatedAt().atOffset(ZoneOffset.ofHours(-1)))
-                .updatedBy(customerAggregate.getUpdatedBy())
+                .updatedBy(new AuditDetails()
+                    .id(customerAggregate.getUpdatedBy().get_id())
+                    .username(customerAggregate.getUpdatedBy().getUsername())
+                    .email(customerAggregate.getUpdatedBy().getEmail()))
                 .lastEvent(customerAggregate.getLastEvent())
                 .history(customerAggregate.getHistory().stream().map(customerHistoryAggregate ->
                     new CustomerHistoryDetails()
@@ -76,7 +86,7 @@ public class CustomerDelegate implements CustomerApiDelegate {
                         .author(customerHistoryAggregate.getAuthor())
                 ).collect(Collectors.toList())))
             .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.badRequest().build());
+            .orElse(ResponseEntity.notFound().build());
     }
 
     @Override
@@ -99,10 +109,25 @@ public class CustomerDelegate implements CustomerApiDelegate {
             customerId,
             authenticationFetcher.getLoggedUserID(),
             updateCustomerRequest.getName(),
-            updateCustomerRequest.getSurname());
+            updateCustomerRequest.getSurname(),
+            null);
 
         customerHandler.update(customerUpdatedEvent);
 
+        return ResponseEntity.accepted().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> customerCustomerIdPost(String customerId, MultipartFile file) {
+        Optional<CustomerAggregate> customer = customerHandler.findById(customerId);
+        if (customer.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        try {
+            customerHandler.uploadFile(customerId, file, authenticationFetcher.getLoggedUserID());
+        } catch (IOException fileException) {
+            return ResponseEntity.internalServerError().build();
+        }
         return ResponseEntity.accepted().build();
     }
 }

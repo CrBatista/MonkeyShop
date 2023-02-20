@@ -21,3 +21,14 @@ security:
     client-secret: ${CLIENT_SECRET}
     public-key: ${PUBLIC_KEY}
     private-key: ${PRIVATE_KEY}
+
+kafka:
+  bootstrap-servers: ${KAFKA_HOST_AND_PORT}
+  topics:
+    user:
+      created:
+        name: ${KAFKA_USER_CREATED_TOPIC}
+      updated:
+        name: ${KAFKA_USER_UPDATED_TOPIC}
+      deleted:
+        name: ${KAFKA_USER_DELETED_TOPIC}

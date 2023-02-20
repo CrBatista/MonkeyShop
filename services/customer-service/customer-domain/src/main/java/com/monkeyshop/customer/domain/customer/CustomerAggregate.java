@@ -35,13 +35,13 @@ public class CustomerAggregate {
     private String photoUrl;
 
     @Field("createdBy")
-    private String createdBy;
+    private AuditAggregate createdBy;
 
     @Field("createdAt")
     private Instant createdAt;
 
     @Field("updatedBy")
-    private String updatedBy;
+    private AuditAggregate updatedBy;
 
     @Field("updatedAt")
     private Instant updatedAt;

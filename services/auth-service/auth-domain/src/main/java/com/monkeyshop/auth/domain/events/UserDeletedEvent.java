@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @Getter
 @Document
-public class UserDeletedEvent extends Event {
+public class UserDeletedEvent extends UserEvent {
 
     public UserDeletedEvent(String userId, String author) {
         super(userId, "deleted", author);
