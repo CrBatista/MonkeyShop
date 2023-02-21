@@ -1,6 +1,6 @@
 # MonkeyShop
 
-The MonkeyShop platform has been develop with the idea of micro-services. Each identified business entity will have it's own services and database to perform all actions related with the entity data.
+The MonkeyShop platform has been developed with the idea of micro-services. Each identified business entity will have its own services and database to perform all actions related with the entity data.
 
 # Tech
 
@@ -10,7 +10,7 @@ We are using an Event-Sourcing architecture for following key points:
 - The performance of the system will keep a good shape in the long term
 - The scalability of the project, both vertically and horizontally will be easy to implement
 - The project will be stateless, so the Continuous Deployment, Orchestration, and Containerization are easy to implement
-- Events are the final source of truth. Aggregates (views) will be built to always return the most up to date version of an entity.
+- Events are the final source of truth. Aggregates (views) will be built to always return the most up-to-date version of an entity.
 - Resources:
     - https://www.youtube.com/watch?v=8JKjvY4etTY
     - https://martinfowler.com/eaaDev/EventSourcing.html

@@ -68,7 +68,7 @@ public class CustomerHandler {
             s3Service.deleteFile(customer.getPhotoUrl());
         }
 
-        String photoUrl = s3Service.uploadFile(file);
+        String photoUrl = s3Service.uploadFile(customerId, file);
 
         update(new CustomerUpdatedEvent(customerId, author, null, null, photoUrl));
     }

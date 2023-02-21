@@ -18,7 +18,7 @@ public class S3Service {
   @Value("${aws.s3.bucketName}")
   public String bucketName;
 
-  public Integer FILE_URL_EXPIRATION_MINUTES = 5;
+  public Integer FILE_URL_EXPIRATION_MINUTES = 1;
 
   private final AmazonS3 amazonS3;
 
@@ -27,11 +27,13 @@ public class S3Service {
     this.amazonS3 = amazonS3;
   }
 
-  public String uploadFile(MultipartFile file) throws IOException {
-    String key = file.getOriginalFilename();
-    PutObjectRequest request = new PutObjectRequest(bucketName, key, file.getInputStream(), null);
+  public String uploadFile(String customerId, MultipartFile file) throws IOException {
+    String fileName = file.getOriginalFilename();
+    int dotIndex = fileName.lastIndexOf('.');
+    fileName = customerId + "." + ((dotIndex == -1) ? "" : fileName.substring(dotIndex + 1));
+    PutObjectRequest request = new PutObjectRequest(bucketName, fileName, file.getInputStream(), null);
     amazonS3.putObject(request);
-    return key;
+    return fileName;
   }
 
   public String generatePresignedURL(String key) {
