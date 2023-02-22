@@ -35,7 +35,9 @@ public class CustomerHandler {
     public Optional<CustomerAggregate> findById(String customerId) {
         return customerQueryRepository.findById(customerId)
             .map(customerAggregate -> {
-                customerAggregate.setPhotoUrl(s3Service.generatePresignedURL(customerAggregate.getPhotoUrl()));
+                if (Objects.nonNull(customerAggregate.getPhotoUrl())) {
+                    customerAggregate.setPhotoUrl(s3Service.generatePresignedURL(customerAggregate.getPhotoUrl()));
+                }
                 return customerAggregate;
             });
     }
